@@ -4235,7 +4235,7 @@
     }
     function initSliders() {
         if (document.querySelector(".hero__slider")) new swiper_core_Swiper(".hero__slider", {
-            modules: [ Navigation, Autoplay ],
+            modules: [ Navigation, Autoplay, Pagination ],
             loop: true,
             observer: true,
             observeParents: true,
@@ -4250,6 +4250,28 @@
             navigation: {
                 prevEl: ".hero__btn-prev",
                 nextEl: ".hero__btn-next"
+            }
+        });
+        if (document.querySelector(".project-hero__slider")) new swiper_core_Swiper(".project-hero__slider", {
+            modules: [ Navigation, Autoplay, Pagination ],
+            loop: true,
+            observer: true,
+            observeParents: true,
+            slidesPerView: 1,
+            spaceBetween: 24,
+            autoHeight: true,
+            speed: 800,
+            autoplay: {
+                delay: 3e3,
+                disableOnInteraction: false
+            },
+            pagination: {
+                el: ".houses__pagination",
+                clickable: true
+            },
+            navigation: {
+                prevEl: ".project-hero__btn-prev",
+                nextEl: ".project-hero__btn-next"
             }
         });
         if (document.querySelector(".hero__sponsors")) new swiper_core_Swiper(".hero__sponsors", {
@@ -4432,11 +4454,18 @@
     const da = new DynamicAdapt("max");
     da.init();
     const headerLinks = document.querySelectorAll(".header__link");
+    const video = document.getElementById("watch-video");
     document.addEventListener("click", ({target}) => {
         if (target.closest(".dropdown__trigger")) target.closest(".dropdown").classList.toggle("dropdown_active"); else if (window.innerWidth > 991.98) document.querySelector(".dropdown").classList.remove("dropdown_active");
         if (target.closest(".burger")) {
             document.body.classList.toggle("menu-open");
             document.body.classList.toggle("lock");
+        }
+        if (target.closest(".watch__play")) {
+            target.closest(".watch__play").classList.add("watch__play_active");
+            video.controls = true;
+            video.currentTime = 0;
+            video.play();
         }
     });
     window.addEventListener("resize", () => {
